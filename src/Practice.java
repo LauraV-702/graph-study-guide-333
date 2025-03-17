@@ -113,7 +113,33 @@ public class Practice {
    * @return a sorted list of all reachable vertex values
    */
   public static List<Integer> sortedReachable(Map<Integer, Set<Integer>> graph, int starting) {
-    return null;
+    if (!graph.containsKey(starting)) {
+      return new ArrayList<>();
+    }
+    
+    List<Integer> result = new ArrayList<>();
+    Set<Integer> visited = new HashSet<>();
+
+    dfs(graph, starting, visited, result);
+
+    Collections.sort(result);
+
+    return result;
+
+  }
+  
+  public static void dfs(Map<Integer, Set<Integer>> graph, int current, Set<Integer> visited, List<Integer> result) {
+    if (visited.contains(current)){
+      return;
+    }
+
+    visited.add(current);
+    result.add(current);
+
+    // recursive call to visit all neighbors using Collections
+    for (int neighbor : graph.getOrDefault(current, Collections.emptySet())) {
+      dfs(graph, neighbor, visited, result);
+    }
   }
 
   /**
