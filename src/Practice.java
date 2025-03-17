@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -73,7 +75,31 @@ public class Practice {
    */
   public static List<Integer> sortedReachable(Vertex<Integer> starting) {
     // Unimplemented: perform a depth-first search and sort the collected values.
-    return null;
+    if (starting == null) {
+      return new ArrayList<>();
+    }
+
+    List<Integer> result = new ArrayList<>();
+    Set<Vertex<Integer>> visited = new HashSet<>();
+
+    dfs(starting, visited, result);
+
+    Collections.sort(result);
+
+    return result;
+  }
+
+  public static void dfs(Vertex<Integer> current, Set<Vertex<Integer>> visited, List<Integer> sorted) {
+    if (visited.contains(current)) {
+      return;
+    }
+
+    visited.add(current);
+    sorted.add(current.data);
+
+    for(Vertex<Integer> neighbor : current.neighbors) {
+      dfs(neighbor, visited, sorted);
+    }
   }
 
   /**
