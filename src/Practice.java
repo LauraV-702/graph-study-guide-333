@@ -157,9 +157,37 @@ public class Practice {
    * @return true if there is a two-way connection between v1 and v2, false otherwise
    */
   public static <T> boolean twoWay(Vertex<T> v1, Vertex<T> v2) {
-    return false;
+    if (v1 == null || v2 == null) {
+      return false;
+  }
+    
+    if (v1 == v2) {
+        return true;
+    }
+
+    Set<Vertex<T>> visitedFromV1 = new HashSet<>();
+    Set<Vertex<T>> visitedFromV2 = new HashSet<>();
+
+    dfsHelper(v1, visitedFromV1);
+    dfsHelper(v2, visitedFromV2);
+
+    return visitedFromV1.contains(v2) && visitedFromV2.contains(v1);
   }
 
+  public static <T> void dfsHelper(Vertex<T> current, Set<Vertex<T>> visited) {
+    // If already visited, return
+    if (visited.contains(current)) {
+        return;
+    }
+
+    // Mark the current vertex as visited
+    visited.add(current);
+
+    // Visit all neighbors of the current vertex
+    for (Vertex<T> neighbor : current.neighbors) {
+        dfsHelper(neighbor, visited);
+    }
+  }
   /**
    * Returns whether there exists a path from the starting to ending vertex that includes only positive values.
    * 
