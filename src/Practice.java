@@ -28,31 +28,11 @@ public class Practice {
    * @return the number of vertices with odd values reachable from the starting vertex
    */
   public static int oddVertices(Vertex<Integer> starting) {
-    if (starting == null) {
-      return 0;
-    }
-    Set<Vertex<Integer>> visited = new HashSet<>();
-    return dfs(starting, visited);
+     
   }
 
-  public static int dfs (Vertex<Integer> current, Set<Vertex<Integer>> visited) {
-    if (visited.contains(current)) {
-      return 0;
-    }
-
-    visited.add(current);
-
-    int count = 0;
-
-    if (current.data % 2 != 0) {
-      count = 1;
-    }
-
-    //then do recursive call here
-    for (Vertex<Integer> neighbor : current.neighbors) {
-      count += dfs(neighbor, visited);
-    }
-    return count;
+  public static int dfs(Vertex<Integer> current, Set<Vertex<Integer>> visited) {
+   
   }
 
   /**
@@ -74,32 +54,11 @@ public class Practice {
    * @return a sorted list of all reachable vertex values by 
    */
   public static List<Integer> sortedReachable(Vertex<Integer> starting) {
-    // Unimplemented: perform a depth-first search and sort the collected values.
-    if (starting == null) {
-      return new ArrayList<>();
-    }
-
-    List<Integer> result = new ArrayList<>();
-    Set<Vertex<Integer>> visited = new HashSet<>();
-
-    dfs(starting, visited, result);
-
-    Collections.sort(result);
-
-    return result;
+    
   }
 
   public static void dfs(Vertex<Integer> current, Set<Vertex<Integer>> visited, List<Integer> sorted) {
-    if (visited.contains(current)) {
-      return;
-    }
-
-    visited.add(current);
-    sorted.add(current.data);
-
-    for(Vertex<Integer> neighbor : current.neighbors) {
-      dfs(neighbor, visited, sorted);
-    }
+   
   }
 
   /**
@@ -113,33 +72,11 @@ public class Practice {
    * @return a sorted list of all reachable vertex values
    */
   public static List<Integer> sortedReachable(Map<Integer, Set<Integer>> graph, int starting) {
-    if (!graph.containsKey(starting)) {
-      return new ArrayList<>();
-    }
-    
-    List<Integer> result = new ArrayList<>();
-    Set<Integer> visited = new HashSet<>();
-
-    dfs(graph, starting, visited, result);
-
-    Collections.sort(result);
-
-    return result;
 
   }
   
   public static void dfs(Map<Integer, Set<Integer>> graph, int current, Set<Integer> visited, List<Integer> result) {
-    if (visited.contains(current)){
-      return;
-    }
-
-    visited.add(current);
-    result.add(current);
-
-    // recursive call to visit all neighbors using Collections
-    for (int neighbor : graph.getOrDefault(current, Collections.emptySet())) {
-      dfs(graph, neighbor, visited, result);
-    }
+    
   }
 
   /**
@@ -157,36 +94,11 @@ public class Practice {
    * @return true if there is a two-way connection between v1 and v2, false otherwise
    */
   public static <T> boolean twoWay(Vertex<T> v1, Vertex<T> v2) {
-    if (v1 == null || v2 == null) {
-      return false;
-  }
-    
-    if (v1 == v2) {
-        return true;
-    }
-
-    Set<Vertex<T>> visitedFromV1 = new HashSet<>();
-    Set<Vertex<T>> visitedFromV2 = new HashSet<>();
-
-    dfsHelper(v1, visitedFromV1);
-    dfsHelper(v2, visitedFromV2);
-
-    return visitedFromV1.contains(v2) && visitedFromV2.contains(v1);
+   
   }
 
   public static <T> void dfsHelper(Vertex<T> current, Set<Vertex<T>> visited) {
-    // If already visited, return
-    if (visited.contains(current)) {
-        return;
-    }
-
-    // Mark the current vertex as visited
-    visited.add(current);
-
-    // Visit all neighbors of the current vertex
-    for (Vertex<T> neighbor : current.neighbors) {
-        dfsHelper(neighbor, visited);
-    }
+    
   }
   /**
    * Returns whether there exists a path from the starting to ending vertex that includes only positive values.
@@ -201,31 +113,11 @@ public class Practice {
    * @return whether there exists a valid positive path from starting to ending
    */
   public static boolean positivePathExists(Map<Integer, Set<Integer>> graph, int starting, int ending) {
-    if (starting <= 0 || ending <= 0 || !graph.containsKey(starting) || !graph.containsKey(ending)) {
-      return false;
-    }
-
-    Set<Integer> visited = new HashSet<>();
-
-    return dfs(graph, starting, ending, visited);
+    
   }
 
   public static boolean dfs(Map<Integer, Set<Integer>> graph, int current, int ending, Set<Integer> visited) {
-    if (current == ending) {
-      return true;
-    }
-
-    visited.add(current);
-
-    for (int neighbor : graph.getOrDefault(current, new HashSet<>())) {
-      if (!visited.contains(neighbor) && neighbor > 0) {
-        if (dfs(graph, neighbor, ending, visited)) {
-          return true; 
-        }
-      }
-    }
-
-    return false;
+  
   }
 
   /**
@@ -238,31 +130,10 @@ public class Practice {
    * @return true if a person in the extended network works at the specified company, false otherwise
    */
   public static boolean hasExtendedConnectionAtCompany(Professional person, String companyName) {
-    if (person == null) {
-      return false;
-    }
-
-    Set<Professional> visited = new HashSet<>();
-
-    return dfs(person, companyName, visited);
+    
   }
 
   public static boolean dfs(Professional person, String companyName, Set<Professional> visited) {
-    if (visited.contains(person)) {
-      return false;
-    }
-
-    visited.add(person);
-
-    if (person.getCompany().equals(companyName)) {
-      return true; 
-    }
-
-    for (Professional connection : person.getConnections()) {
-      if (dfs(connection, companyName, visited)) {
-        return true; 
-      }
-    }
-    return false;
+   
   }
 }
